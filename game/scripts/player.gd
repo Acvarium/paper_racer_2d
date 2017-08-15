@@ -8,6 +8,7 @@ var last_velocity = Vector2(0,0)
 var life = 100
 var sprite = 0
 var row = 5
+var engine_sound 
 
 const MAX_SPEED = 1000
 const MIN_SPEED = 500
@@ -18,7 +19,8 @@ func _ready():
 	speed = MIN_SPEED
 	start_pos = get_pos()
 	max_speed = MAX_SPEED
-#	set_process_input(true)
+	get_node("SamplePlayer").get_sample_library().get_sample("engine").set_loop_format(1)
+	engine_sound = get_node("SamplePlayer").play("engine")
 
 func _fixed_process(delta):
 	var velocity = Vector2(0,0)
@@ -50,10 +52,12 @@ func _fixed_process(delta):
 #	pos.x += move_y * delta
 	velocity.x += move_y * delta
 	velocity.y = -speed * delta
-#	set_pos(pos)
+
 	set_linear_velocity(velocity * 80)
 	last_velocity = get_linear_velocity()
 	get_node("Label").set_text(str("%02d" % life))
+	var pitch = ((get_linear_velocity().length() - MIN_SPEED) / (MAX_SPEED - MIN_SPEED)) * 0.3 + 1
+	get_node("SamplePlayer").set_pitch_scale(engine_sound, pitch)
 	
 func _input(event):
 	if event.is_action_pressed("ui_left"):
