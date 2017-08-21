@@ -9,10 +9,13 @@ var life = 100
 var sprite = 0
 var row = 5
 var engine_sound 
+var ray
 
 const MAX_SPEED = 1000
 const MIN_SPEED = 500
 var max_speed
+export var bot_mode = 1
+var command = 0
 
 func _ready():
 	set_fixed_process(true)
@@ -21,11 +24,23 @@ func _ready():
 	max_speed = MAX_SPEED
 	get_node("SamplePlayer").get_sample_library().get_sample("engine").set_loop_format(1)
 	engine_sound = get_node("SamplePlayer").play("engine")
+	ray = get_node("RayCast2D")
+	ray.add_exception(self)
 
 func _fixed_process(delta):
+	if ray.is_colliding():
+		print("adsdafdagf")
+		if ray.get_collider().is_in_group("car"):
+			print("adsdafdagf")
+			command = 1
+			if get_pos().x < 200:
+				command = 2
+	else:
+		command = 0
+		
 	var velocity = Vector2(0,0)
 	if speed > max_speed:
-			speed -= 5
+		speed -= 5
 	if speed < 0:
 		speed = 0
 	if life > 0:
@@ -38,16 +53,17 @@ func _fixed_process(delta):
 		else:
 			if speed > MIN_SPEED:
 				speed -= 5
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ui_left") or (bot_mode == 1 and command == 1):
 			move_y = -speed_y
 			set_rot(PI/15)
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("ui_right") or (bot_mode == 1 and command == 2):
 			move_y = speed_y
 			set_rot(-PI/15)
 	move_y = move_y * 0.7
 	var rot = get_rot()
 	rot = rot * 0.7
 	set_rot(rot)
+	ray.set_rot(-rot*2)
 	var pos = get_pos()
 #	pos.x += move_y * delta
 	velocity.x += move_y * delta
@@ -58,6 +74,7 @@ func _fixed_process(delta):
 	get_node("Label").set_text(str("%02d" % life))
 	var pitch = ((get_linear_velocity().length() - MIN_SPEED) / (MAX_SPEED - MIN_SPEED)) * 0.3 + 1
 	get_node("SamplePlayer").set_pitch_scale(engine_sound, pitch)
+	get_node("Label1").set_text(str("%02d" % get_pos().x))
 	
 func _input(event):
 	if event.is_action_pressed("ui_left"):
