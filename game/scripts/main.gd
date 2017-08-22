@@ -14,7 +14,6 @@ func _process(delta):
 
 func _on_killer_body_enter( body ):
 	if body.is_in_group("car"):
-		print(body.get_name())
 		var a = (randi() % 4 + 1) * 100.0
 		if a > 200:
 			a += 40

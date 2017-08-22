@@ -219,7 +219,7 @@ stretch_mode = 0
 
 [node name="player" type="RigidBody2D" parent="."]
 
-transform/pos = Vector2( 335.008, 701.385 )
+transform/pos = Vector2( 98.553, 695.067 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, -2 )
@@ -404,12 +404,38 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="RayCast2D" type="RayCast2D" parent="player"]
+[node name="RayFront" type="RayCast2D" parent="player"]
 
 enabled = true
 cast_to = Vector2( 0, -300 )
 layer_mask = 1
 type_mask = 15
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RayLeft" type="RayCast2D" parent="player"]
+
+transform/pos = Vector2( 0, -65 )
+enabled = true
+cast_to = Vector2( -80, 0 )
+layer_mask = 1
+type_mask = 15
+
+[node name="RayRight" type="RayCast2D" parent="player"]
+
+transform/pos = Vector2( 0, -65 )
+enabled = true
+cast_to = Vector2( 80, 0 )
+layer_mask = 1
+type_mask = 15
+
+[node name="restart_timer" type="Timer" parent="player"]
+
+process_mode = 1
+wait_time = 1.5
+one_shot = true
+autostart = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -485,7 +511,15 @@ __meta__ = {
 
 [node name="car" parent="." instance=ExtResource( 9 )]
 
-transform/pos = Vector2( 340.612, -205.055 )
+transform/pos = Vector2( 95.0952, -276.873 )
+
+[node name="car1" parent="." instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 345.456, -904.319 )
+
+[node name="car2" parent="." instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 190.912, -1460.68 )
 
 [connection signal="body_enter" from="player" to="player" method="_on_player_body_enter"]
 
@@ -496,6 +530,8 @@ transform/pos = Vector2( 340.612, -205.055 )
 [connection signal="body_enter" from="player/r_side" to="player" method="_on_r_side_body_enter"]
 
 [connection signal="timeout" from="player/Timer" to="player" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="player/restart_timer" to="player" method="_on_restart_timer_timeout"]
 
 [connection signal="body_enter" from="Camera2D/killer" to="." method="_on_killer_body_enter"]
 
