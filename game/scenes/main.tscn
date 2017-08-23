@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://textures/grad01.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://textures/cars.png" type="Texture" id=7]
 [ext_resource path="res://sounds/engine_loop01.smp" type="Sample" id=8]
 [ext_resource path="res://objects/car.tscn" type="PackedScene" id=9]
+[ext_resource path="res://icon.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -82,14 +83,19 @@ extents = Vector2( 586.164, 45.554 )
 
 script/script = ExtResource( 1 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="2d" type="Node2D" parent="."]
 
+editor/display_folded = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="2d"]
+
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="TextureFrame" type="TextureFrame" parent="CanvasLayer"]
+[node name="TextureFrame" type="TextureFrame" parent="2d/CanvasLayer"]
 
 visibility/blend_mode = 3
 focus/ignore_mouse = true
@@ -106,7 +112,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="2d"]
 
 editor/display_folded = true
 layer = -1
@@ -120,7 +126,7 @@ scroll/limit_begin = Vector2( 0, 0 )
 scroll/limit_end = Vector2( 0, 0 )
 scroll/ignore_camera_zoom = false
 
-[node name="road" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="road" type="ParallaxLayer" parent="2d/ParallaxBackground"]
 
 editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
@@ -130,7 +136,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/road"]
+[node name="TextureFrame" type="TextureFrame" parent="2d/ParallaxBackground/road"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -147,7 +153,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="TextureFrame1" type="TextureFrame" parent="ParallaxBackground/road"]
+[node name="TextureFrame1" type="TextureFrame" parent="2d/ParallaxBackground/road"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -164,14 +170,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="scull" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="scull" type="ParallaxLayer" parent="2d/ParallaxBackground"]
 
 editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 0, 20000 )
 
-[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/scull"]
+[node name="TextureFrame" type="TextureFrame" parent="2d/ParallaxBackground/scull"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -184,13 +190,14 @@ margin/bottom = 1483.0
 texture = ExtResource( 4 )
 stretch_mode = 0
 
-[node name="hatch" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="hatch" type="ParallaxLayer" parent="2d/ParallaxBackground"]
 
+editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 0, 2400 )
 
-[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/hatch"]
+[node name="TextureFrame" type="TextureFrame" parent="2d/ParallaxBackground/hatch"]
 
 rect/rotation = 180.0
 focus/ignore_mouse = true
@@ -204,7 +211,7 @@ margin/bottom = 190.0
 texture = ExtResource( 5 )
 stretch_mode = 0
 
-[node name="TextureFrame1" type="TextureFrame" parent="ParallaxBackground/hatch"]
+[node name="TextureFrame1" type="TextureFrame" parent="2d/ParallaxBackground/hatch"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -217,8 +224,9 @@ margin/bottom = 778.0
 texture = ExtResource( 5 )
 stretch_mode = 0
 
-[node name="player" type="RigidBody2D" parent="."]
+[node name="player" type="RigidBody2D" parent="2d"]
 
+editor/display_folded = true
 transform/pos = Vector2( 98.553, 695.067 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -242,9 +250,8 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 6 )
-bot_mode = 1
 
-[node name="Label" type="Label" parent="player"]
+[node name="Label" type="Label" parent="2d/player"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -262,7 +269,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Label1" type="Label" parent="player"]
+[node name="Label1" type="Label" parent="2d/player"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -280,7 +287,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/player"]
 
 transform/pos = Vector2( 0, -2 )
 shape = SubResource( 1 )
@@ -290,7 +297,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="player"]
+[node name="Sprite" type="Sprite" parent="2d/player"]
 
 texture = ExtResource( 7 )
 vframes = 3
@@ -299,7 +306,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="front" type="Area2D" parent="player"]
+[node name="front" type="Area2D" parent="2d/player"]
 
 editor/display_folded = true
 visibility/visible = false
@@ -315,14 +322,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player/front"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/player/front"]
 
 transform/pos = Vector2( 0, -76.7879 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
-[node name="l_side" type="Area2D" parent="player"]
+[node name="l_side" type="Area2D" parent="2d/player"]
 
 editor/display_folded = true
 visibility/visible = false
@@ -338,14 +345,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player/l_side"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/player/l_side"]
 
 transform/pos = Vector2( -34.3843, -1.59448 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
-[node name="r_side" type="Area2D" parent="player"]
+[node name="r_side" type="Area2D" parent="2d/player"]
 
 editor/display_folded = true
 visibility/visible = false
@@ -361,21 +368,21 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player/r_side"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/player/r_side"]
 
 transform/pos = Vector2( 34.6157, -1.59448 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Timer" type="Timer" parent="player"]
+[node name="Timer" type="Timer" parent="2d/player"]
 
 process_mode = 1
 wait_time = 2.0
 one_shot = true
 autostart = false
 
-[node name="anim" type="AnimationPlayer" parent="player"]
+[node name="anim" type="AnimationPlayer" parent="2d/player"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -387,7 +394,7 @@ playback/speed = 1.5
 blend_times = [  ]
 autoplay = ""
 
-[node name="SamplePlayer" type="SamplePlayer" parent="player"]
+[node name="SamplePlayer" type="SamplePlayer" parent="2d/player"]
 
 config/polyphony = 1
 config/samples = SubResource( 6 )
@@ -404,7 +411,7 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="RayFront" type="RayCast2D" parent="player"]
+[node name="RayFront" type="RayCast2D" parent="2d/player"]
 
 enabled = true
 cast_to = Vector2( 0, -300 )
@@ -414,7 +421,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RayLeft" type="RayCast2D" parent="player"]
+[node name="RayLeft" type="RayCast2D" parent="2d/player"]
 
 transform/pos = Vector2( 0, -65 )
 enabled = true
@@ -422,7 +429,7 @@ cast_to = Vector2( -80, 0 )
 layer_mask = 1
 type_mask = 15
 
-[node name="RayRight" type="RayCast2D" parent="player"]
+[node name="RayRight" type="RayCast2D" parent="2d/player"]
 
 transform/pos = Vector2( 0, -65 )
 enabled = true
@@ -430,15 +437,16 @@ cast_to = Vector2( 80, 0 )
 layer_mask = 1
 type_mask = 15
 
-[node name="restart_timer" type="Timer" parent="player"]
+[node name="restart_timer" type="Timer" parent="2d/player"]
 
 process_mode = 1
 wait_time = 1.5
 one_shot = true
 autostart = false
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="2d"]
 
+editor/display_folded = true
 transform/pos = Vector2( 270, 480 )
 anchor_mode = 1
 rotating = false
@@ -457,8 +465,9 @@ drag_margin/top = 0.0
 drag_margin/right = 0.0
 drag_margin/bottom = 0.0
 
-[node name="blocks" type="StaticBody2D" parent="Camera2D"]
+[node name="blocks" type="StaticBody2D" parent="2d/Camera2D"]
 
+editor/display_folded = true
 transform/pos = Vector2( -270, -480 )
 input/pickable = false
 shapes/0/shape = SubResource( 7 )
@@ -474,23 +483,24 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/blocks"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/Camera2D/blocks"]
 
 transform/pos = Vector2( 18.4414, 377.789 )
 shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 0
 
-[node name="CollisionShape2D1" type="CollisionShape2D" parent="Camera2D/blocks"]
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="2d/Camera2D/blocks"]
 
 transform/pos = Vector2( 518.089, 378.33 )
 shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 1
 
-[node name="killer" type="Area2D" parent="Camera2D"]
+[node name="killer" type="Area2D" parent="2d/Camera2D"]
 
-transform/pos = Vector2( 4.21497, 762.995 )
+editor/display_folded = true
+transform/pos = Vector2( 3.80115, 776.014 )
 input/pickable = true
 shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -500,7 +510,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/killer"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2d/Camera2D/killer"]
 
 shape = SubResource( 8 )
 trigger = false
@@ -509,30 +519,123 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="car" parent="." instance=ExtResource( 9 )]
+[node name="cars" type="Node2D" parent="2d"]
+
+[node name="car" parent="2d/cars" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 95.0952, -276.873 )
 
-[node name="car1" parent="." instance=ExtResource( 9 )]
+[node name="car1" parent="2d/cars" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 345.456, -904.319 )
 
-[node name="car2" parent="." instance=ExtResource( 9 )]
+[node name="car2" parent="2d/cars" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 190.912, -1460.68 )
 
-[connection signal="body_enter" from="player" to="player" method="_on_player_body_enter"]
+[node name="3d" type="Spatial" parent="."]
 
-[connection signal="body_enter" from="player/front" to="player" method="_on_front_body_enter"]
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[connection signal="body_enter" from="player/l_side" to="player" method="_on_l_side_body_enter"]
+[node name="Camera" type="Camera" parent="3d"]
 
-[connection signal="body_enter" from="player/r_side" to="player" method="_on_r_side_body_enter"]
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 0.170346, 0.985384, 0, -0.985384, 0.170346, -0.00394511, 6.51408, 1.95795 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = true
+visible_layers = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
 
-[connection signal="timeout" from="player/Timer" to="player" method="_on_Timer_timeout"]
+[node name="Sprite3D" type="Sprite3D" parent="3d"]
 
-[connection signal="timeout" from="player/restart_timer" to="player" method="_on_restart_timer_timeout"]
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 1.93349 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+centered = true
+offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = false
+modulate = Color( 1, 1, 1, 1 )
+opacity = 1.0
+pixel_size = 0.01
+axis = 2
+flags/transparent = true
+flags/shaded = false
+flags/alpha_cut = 0
+texture = ExtResource( 10 )
+vframes = 1
+hframes = 1
+frame = 0
+region = false
+region_rect = Rect2( 0, 0, 0, 0 )
 
-[connection signal="body_enter" from="Camera2D/killer" to="." method="_on_killer_body_enter"]
+[node name="Sprite3D1" type="Sprite3D" parent="3d/Sprite3D"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.632032, 1.26254e-07, -0.774942, -1.26254e-07, 1, 5.99495e-08, 0.774942, 5.99495e-08, 0.632032, 0, 0, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+centered = true
+offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = false
+modulate = Color( 1, 1, 1, 1 )
+opacity = 1.0
+pixel_size = 0.01
+axis = 2
+flags/transparent = true
+flags/shaded = false
+flags/alpha_cut = 0
+texture = ExtResource( 10 )
+vframes = 1
+hframes = 1
+frame = 0
+region = false
+region_rect = Rect2( 0, 0, 0, 0 )
+
+[connection signal="body_enter" from="2d/player" to="2d/player" method="_on_player_body_enter"]
+
+[connection signal="body_enter" from="2d/player/front" to="2d/player" method="_on_front_body_enter"]
+
+[connection signal="body_enter" from="2d/player/l_side" to="2d/player" method="_on_l_side_body_enter"]
+
+[connection signal="body_enter" from="2d/player/r_side" to="2d/player" method="_on_r_side_body_enter"]
+
+[connection signal="timeout" from="2d/player/Timer" to="2d/player" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="2d/player/restart_timer" to="2d/player" method="_on_restart_timer_timeout"]
+
+[connection signal="body_enter" from="2d/Camera2D/killer" to="." method="_on_killer_body_enter"]
 
 

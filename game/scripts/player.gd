@@ -13,12 +13,12 @@ var rayFront
 var rayLeft
 var rayRight
 
-var lines = [100,210,335,450]
+var bot_mode = 1
 
+var lines = [100,210,335,450]
 const MAX_SPEED = 1000
 const MIN_SPEED = 500
 var max_speed
-export var bot_mode = 1
 var command = 0
 var aim = 0
 var aim_slot = 35
@@ -41,20 +41,20 @@ func _ready():
 	rayRight.add_exception(self)
 
 func _fixed_process(delta):
-
-	if rayFront.is_colliding() and command == 0:
-		if rayFront.get_collider().is_in_group("car"):
-			if (rayFront.get_collider().get_pos().x > get_pos().x or get_line() == 3 or rayRight.is_colliding()) and  get_line() > 0:
-				command = 1
-				aim = lines[get_line() - 1]
-			else:
-				command = 2
-				aim = lines[get_line() + 1]
-			if (rayLeft.is_colliding() and get_line() < 3) or get_line() == 0:
-				command = 2
-				aim = lines[get_line() + 1]
-	if is_about():
-		command = 0
+	if bot_mode == 1:
+		if rayFront.is_colliding() and command == 0:
+			if rayFront.get_collider().is_in_group("car"):
+				if (rayFront.get_collider().get_pos().x > get_pos().x or get_line() == 3 or rayRight.is_colliding()) and  get_line() > 0:
+					command = 1
+					aim = lines[get_line() - 1]
+				else:
+					command = 2
+					aim = lines[get_line() + 1]
+				if (rayLeft.is_colliding() and get_line() < 3) or get_line() == 0:
+					command = 2
+					aim = lines[get_line() + 1]
+		if is_about():
+			command = 0
 	var velocity = Vector2(0,0)
 	if speed > max_speed:
 		speed -= 5
